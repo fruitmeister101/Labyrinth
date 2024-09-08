@@ -12,6 +12,7 @@ public class LabyrinthMaster : MonoBehaviour
     [SerializeField] public int UpdateInterval;
     [SerializeField] List<GameObject> Labyrinth;
     [SerializeField] public static LabyrinthMaster MasterReference;
+    public GameObject Player;
     int tempCounter = 0;
 
     [SerializeField] GameObject PrefabRoom;
@@ -37,27 +38,27 @@ public class LabyrinthMaster : MonoBehaviour
     public void MoveLabyrinth(GameObject obj, int dir)
     {
         dir %= 4;
-        GameObject[] ToBeMoved;
+        Tile[] ToBeMoved;
         if (dir == 1 || dir == 3)
         {
             dir = dir - 2;
-            ToBeMoved = (from i in Labyrinth where i.transform.position.x == obj.transform.position.x select i).ToArray();
+            ToBeMoved = (from i in Labyrinth where i.transform.position.x == obj.transform.position.x select i.GetComponent<Tile>()).ToArray();
             foreach (var item in ToBeMoved)
             { // Moves All in Collumn and wraps around
-                var goTo = new Vector3(item.transform.position.x, 0, (((item.transform.position.z / Spacing + dir + countZ)) % countZ) * Spacing);
-                item.GetComponent<Tile>()!.Move(goTo); 
-                item.GetComponent<Rigidbody>().MovePosition(goTo);
+                // var goTo = new Vector3(item.transform.position.x, 0, (((item.transform.position.z / Spacing + dir + countZ)) % countZ) * Spacing);
+                var goTo = new Vector3(item.transform.position.x, 0, item.transform.position.z + Spacing * dir);
+                item.Move(goTo);
             }
         }
         else if (dir == 0 || dir == 2)
         {
             dir = dir - 1;
-            ToBeMoved = (from i in Labyrinth where i.transform.position.z == obj.transform.position.z select i).ToArray();
+            ToBeMoved = (from i in Labyrinth where i.transform.position.z == obj.transform.position.z select i.GetComponent<Tile>()).ToArray();
             foreach (var item in ToBeMoved)
             { // Moves All in Row and wraps around
-                var goTo = new Vector3((((item.transform.position.x / Spacing + dir + countX)) % countX) * Spacing,0,item.transform.position.z);
-                item.GetComponent<Tile>()!.Move(goTo); 
-                item.GetComponent<Rigidbody>().MovePosition(goTo);
+                // var goTo = new Vector3((((item.transform.position.x / Spacing + dir + countX)) % countX) * Spacing,0,item.transform.position.z);
+                var goTo = new Vector3(item.transform.position.x + Spacing * dir, 0, item.transform.position.z);
+                item.Move(goTo);
             }
         }
         

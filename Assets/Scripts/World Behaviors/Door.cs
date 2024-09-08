@@ -11,8 +11,8 @@ public class Door : MonoBehaviour
     [SerializeField] Material blockedDoor;
     NavMeshObstacle obs;
     MeshRenderer rend;
-    Collider col;
-    DoorState state = DoorState.Open;
+    [SerializeField] Collider col;
+    public DoorState state = DoorState.Open;
 
     private void Awake()
     {
@@ -45,16 +45,15 @@ public class Door : MonoBehaviour
         transform.position = new(transform.position.x, 5, transform.position.z);
         state = DoorState.Blocked;
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (state == DoorState.Closed)
         {
+            Debug.Log("Opened Door");
             OpenDoor();
             Invoke("CloseDoor", 5.0f);
         }
     }
-
 }
 public enum DoorState
 {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 //using UnityEditor.AI;
@@ -23,7 +24,15 @@ public class Enemy : BasicCharacter
         if (!nav) throw new System.Exception($"{gameObject} does not have NavMesh Agent");
         nav.updateRotation = true;
         nav.updatePosition = true;
+        nav.updateUpAxis = true;
 
+    }
+    private void Start()
+    {
+        if (!Player)
+        {
+            Player = LabyrinthMaster.MasterReference.Player;
+        }
     }
 
     protected override void FixedUpdate()
@@ -33,7 +42,8 @@ public class Enemy : BasicCharacter
         {
             Target = Player.transform.position;
             nav.SetDestination(Target);
-            timer = Mathf.Min( 10.0f, (transform.position - Target).magnitude / 10.0f);
+            //nav.nextPosition = body.position;
+            timer = (nav.nextPosition - Target).magnitude / 10.0f;
         }
         else if (!nav.pathPending)
         {
@@ -41,8 +51,17 @@ public class Enemy : BasicCharacter
             corners = nav.path.corners;
         }
 
+        /*
+        if ((body.position - nav.nextPosition).magnitude > 3)
+        {
+            nav.nextPosition = body.position;
+            //nav.nextPosition = (nav.nextPosition - body.position) * 0.9f + body.position;
+        }
+        
+        body.AddForce ((nav.nextPosition - transform.position) * speed - body.velocity * 5);
+        */
 
-        
-        
+
+        base.FixedUpdate();
     }
 }
