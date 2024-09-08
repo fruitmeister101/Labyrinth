@@ -46,10 +46,7 @@ public class BasicCharacter : MonoBehaviour
         //{
         //    transform.parent = P.transform;
         //}
-        if (transform.position.y < -10)
-        {
-            GameObject.Destroy(gameObject);
-        }
+        CheckFall();
     }
     public bool Equip(Item item)
     {
@@ -91,19 +88,29 @@ public class BasicCharacter : MonoBehaviour
         Guns[gun].Shoot(transform.position, Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, Cam.transform.position.y - transform.position.y)), Guns[gun].DefaultBullet, 15.0f, 1.15f);
         //Debug.Log(Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, -30.0f)));
     }
-
-    protected virtual void OnCollisionEnter(Collision collision)
+    public virtual void CheckHP()
     {
         if (Health <= 0)
         {
             GameObject.Destroy(gameObject);
         }
+    }
+    public virtual void CheckFall(float Height = -10)
+    {
+        if (transform.position.y < Height)
+        {
+            GameObject.Destroy(gameObject);
+        }
+    }
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        
         //Debug.Log(collision.collider);
         var d = collision.collider.GetComponent<Door>();
         if (d && d.state == DoorState.Closed)
         {
             d.OpenDoor();
-            d.Invoke("CloseDoor", 5.0f);
+            //d.Invoke("CloseDoor", 5.0f);
         }
     }
 }
