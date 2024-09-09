@@ -25,14 +25,12 @@ public class BasicCharacter : MonoBehaviour
 
     
 
-    // Start is called before the first frame update
     protected virtual void Awake()
     {
         moveVec = new Vector3();
         if (!body) body = GetComponent<Rigidbody>(); if (!body) throw new System.Exception($"{this}.Rigidbody Missing");
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         //Jump = Input.GetKeyDown(KeyCode.Space)?true:Jump;

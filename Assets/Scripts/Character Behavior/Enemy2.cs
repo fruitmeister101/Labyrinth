@@ -19,6 +19,7 @@ public class Enemy2 : BasicCharacter
     
     protected override void FixedUpdate()
     {
+        /*
         if (parent == transform.parent)
         {
             
@@ -38,9 +39,23 @@ public class Enemy2 : BasicCharacter
         {
             parent = transform.parent;
             pathProgress = 1;
-            path = parent.GetComponent<Tile>().pathToPlayer;
+            //path = parent.GetComponent<Tile>().pathToPlayer;
         }
+        */
         base.FixedUpdate();
-        body.AddForce (moveVec);
+        var pTile = transform.parent.GetComponent<Tile>();
+        if (pTile)
+        {
+            if (pTile.GetComponentInChildren<Player>())
+            {
+                moveVec = (pTile.player.transform.position - transform.position).normalized * speed;
+            }
+            else
+            {
+                moveVec = (pTile.Closest.transform.position - transform.position).normalized * speed;
+            }
+            body.AddForce (moveVec);
+            transform.forward = moveVec;
+        }
     }
 }

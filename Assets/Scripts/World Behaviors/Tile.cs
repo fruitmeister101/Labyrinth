@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 public class Tile : MonoBehaviour
 {
     [SerializeField] GameObject LabyrinthController;
-    [SerializeField] List<Door> Doors = new();
-    [SerializeField] Transform walls;
+    [SerializeField] public List<Door> Doors = new();
+    public int Rotation = 0;
+    //[SerializeField] Transform walls;
     public Rigidbody body;
-    public NavMeshPath pathToPlayer;
+    //public NavMeshPath pathToPlayer;
+    public int DistToPlayer = 0;
     public GameObject player;
+    [SerializeField] Tile[] Neighbors;
+    public Tile Closest;
 
     Vector3 startLoc;
     Vector3 endLoc;
@@ -37,14 +41,15 @@ public class Tile : MonoBehaviour
         var count = 0;
         foreach (var door in Doors)
         {
-            if (count < 2 && Random.Range(0,3) == 0)
+            if (count < 2 && Random.Range(0,4) == 0)
             {
                 door.BlockDoor();
+                //door.CloseDoor();
                 count++;
             }
             else
             {
-                door.CloseDoor(true);
+                door.CloseDoor();
             }
         }
         startLoc = transform.position;
@@ -53,6 +58,38 @@ public class Tile : MonoBehaviour
 
     }
     private void FixedUpdate()
+    {
+        DoingMoving();
+
+
+
+
+
+        if (GetComponentInChildren<Player>() /*|| Random.Range(0,100) == 0*/)
+        {
+            //DoPathing();
+            //GetNeighbors();
+            DistToPlayer = 0;
+        }
+        else
+        {
+            DoPathing();
+        }
+        if (!Closest)
+        {
+            Closest = this;
+        }
+        foreach (var c in Neighbors)
+        {
+            if (c && c.DistToPlayer < Closest.DistToPlayer)
+            {
+                Closest = c;
+            }
+        }
+        
+
+    }
+    void DoingMoving()
     {
         if (interp < 1)
         {
@@ -96,12 +133,6 @@ public class Tile : MonoBehaviour
             body.MovePosition(endLoc);
             transform.position = endLoc;
         }
-
-        if (GetComponentInChildren<Player>() || Random.Range(0,100) == 0)
-        {
-            DoPathing();
-        }
-
     }
     public void Move(Vector3 destination)
     {
@@ -114,12 +145,62 @@ public class Tile : MonoBehaviour
     }
     void DoPathing()
     {
-        if (pathToPlayer is null) 
+        /*if (pathToPlayer is null) 
         { 
             pathToPlayer = new();
         } 
         NavMesh.CalculatePath(transform.position, player.transform.position, NavMesh.AllAreas, pathToPlayer);
+        */
 
+        int BoardSize = LabyrinthMaster.MasterReference.countX * LabyrinthMaster.MasterReference.countZ;
+        int min = BoardSize*2;
+        for (int i = 0; i < 4; i++)
+        {
+            if (Neighbors[i] is null) 
+            {
+                continue;
+            } 
+            else if (Doors[i].state != DoorState.Blocked && Neighbors[i].Doors[(i + 2) % 4].state != DoorState.Blocked)
+            {
+                min = Mathf.Min(min, Neighbors[i].DistToPlayer, DistToPlayer);
+            }
+        }
+        DistToPlayer = min + 1;
+    }
+
+    public void GetNeighbors()
+    {
+        Closest = this;
+        var MR = LabyrinthMaster.MasterReference;
+        var neighbors = (from t in MR.Labyrinth
+                        where (
+                            t.transform.position == transform.position + new Vector3(MR.Spacing,0,0)
+                        ||  t.transform.position == transform.position + new Vector3(0, 0, MR.Spacing)
+                        ||  t.transform.position == transform.position + new Vector3(-MR.Spacing, 0, 0)
+                        || t.transform.position == transform.position + new Vector3(0, 0, -MR.Spacing)
+                        )
+                        select t.GetComponent<Tile>()).ToList();
+        Neighbors = new Tile[4];
+        while (neighbors.Count > 0)
+        {
+            if (neighbors[0].transform.position == transform.position + new Vector3(0, 0, MR.Spacing))
+            {
+                Neighbors[0] = neighbors[0];
+            }
+            else if (neighbors[0].transform.position == transform.position + new Vector3(MR.Spacing, 0, 0))
+            {
+                Neighbors[1] = neighbors[0];
+            }
+            else if (neighbors[0].transform.position == transform.position + new Vector3(0, 0, -MR.Spacing))
+            {
+                Neighbors[2] = neighbors[0];
+            }
+            else if (neighbors[0].transform.position == transform.position + new Vector3(-MR.Spacing, 0, 0))
+            {
+                Neighbors[3] = neighbors[0];
+            }
+            neighbors.RemoveAt(0);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

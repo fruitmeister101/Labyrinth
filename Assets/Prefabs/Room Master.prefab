@@ -1863,12 +1863,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LabyrinthController: {fileID: 0}
   Doors:
-  - {fileID: 2007606164830774140}
-  - {fileID: 3454817656152592444}
   - {fileID: 7084196870828292523}
   - {fileID: 6127647724863405833}
+  - {fileID: 2007606164830774140}
+  - {fileID: 3454817656152592444}
   walls: {fileID: 5202768015938049098}
   body: {fileID: 0}
+  DistToPlayer: 0
   player: {fileID: 0}
   interpSpeed: 0.005
 --- !u!54 &3642953094524892409

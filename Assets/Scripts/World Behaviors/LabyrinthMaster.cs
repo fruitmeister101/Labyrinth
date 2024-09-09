@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine.AI;
 
 public class LabyrinthMaster : MonoBehaviour
@@ -10,7 +11,7 @@ public class LabyrinthMaster : MonoBehaviour
     [SerializeField] public int countZ;
     [SerializeField] public int Spacing;
     [SerializeField] public int UpdateInterval;
-    [SerializeField] List<GameObject> Labyrinth;
+    [SerializeField] public List<GameObject> Labyrinth;
     [SerializeField] public static LabyrinthMaster MasterReference;
     public GameObject Player;
     int tempCounter = 0;
@@ -34,6 +35,7 @@ public class LabyrinthMaster : MonoBehaviour
             }
             posX++;
         }
+        RelinquishControl();
     }
 
     public void MoveLabyrinth(GameObject obj, int dir)
@@ -71,7 +73,17 @@ public class LabyrinthMaster : MonoBehaviour
     public static void RelinquishControl()
     {
         MasterReference.isMoving = false;
+        DoPathing();
     }
+    static void DoPathing()
+    {
+        foreach (var t in LabyrinthMaster.MasterReference.Labyrinth)
+        {
+            t.GetComponent<Tile>().GetNeighbors();
+        }
+
+    }
+
     private void FixedUpdate()
     {
         tempCounter++;
