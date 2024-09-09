@@ -174,9 +174,49 @@ PrefabInstance:
       propertyPath: Cam
       value: 
       objectReference: {fileID: 885444480}
+    - target: {fileID: 2463493930348139686, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: a554c8af9d17ca54793e887d7f62b614, type: 2}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117625341212910156, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5448068885612718293, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7048783148403503867, guid: 5a24a245bfc4b7140bdc535ab086071b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -450,7 +490,7 @@ MonoBehaviour:
   countX: 9
   countZ: 9
   Spacing: 27
-  UpdateInterval: 1
+  UpdateInterval: 250
   Labyrinth: []
   Player: {fileID: 0}
   PrefabRoom: {fileID: 7594493739231978891, guid: bfcfbd54fa79df641a30e6168ff51788, type: 3}

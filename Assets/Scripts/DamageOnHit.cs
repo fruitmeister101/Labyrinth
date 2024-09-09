@@ -8,11 +8,7 @@ public class DamageOnHit : MonoBehaviour
     protected virtual void OnCollisionEnter(Collision collision)
     {
         var character = collision.gameObject.GetComponent<BasicCharacter>();
-        if (character) { 
-            character.Health -= dmg;
-            character.CheckHP();
-        }
-        
+        if (character) character.Health -= dmg;
         //GameObject.Destroy(this);
     }
 }

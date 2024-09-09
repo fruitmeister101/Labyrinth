@@ -14,7 +14,6 @@ public class LabyrinthMaster : MonoBehaviour
     [SerializeField] public static LabyrinthMaster MasterReference;
     public GameObject Player;
     int tempCounter = 0;
-    bool isMoving = false;
 
     [SerializeField] GameObject PrefabRoom;
     // Start is called before the first frame update
@@ -38,8 +37,6 @@ public class LabyrinthMaster : MonoBehaviour
 
     public void MoveLabyrinth(GameObject obj, int dir)
     {
-        if (isMoving) return;
-        isMoving = true;
         dir %= 4;
         Tile[] ToBeMoved;
         if (dir == 1 || dir == 3)
@@ -68,10 +65,6 @@ public class LabyrinthMaster : MonoBehaviour
 
     }
 
-    public static void RelinquishControl()
-    {
-        MasterReference.isMoving = false;
-    }
     private void FixedUpdate()
     {
         tempCounter++;
