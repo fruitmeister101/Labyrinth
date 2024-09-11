@@ -21,15 +21,15 @@ public class Cam : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    /*void FixedUpdate()
+    void FixedUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, new Vector3(Mathf.Floor((follow.position.x + 13.5f) / spacing) * size - relative.x, transform.position.y, Mathf.Floor((follow.position.z + 13.5f) / spacing) * size - relative.z), 0.05f);
-    }*/
-    void FixedUpdate()
+    }
+    /*void FixedUpdate()
     {
         relPoint = new(follow.position.x, relative.y, follow.position.z);
         mousePoint = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, relative.y));
         transform.position = Vector3.Lerp(transform.position, relPoint, 0.1f);
         //transform.position = Vector3.Lerp( transform.position, new(follow.position.x, relative.y, follow.position.z), 0.01f);
-    }
+    }*/
 }

@@ -19,26 +19,41 @@ public class Enemy2 : BasicCharacter
     
     protected override void FixedUpdate()
     {
-        if (parent == transform.parent)
-        {
-            
-            if (path is not null && path.corners.Length > pathProgress)
+            //bool skip = false;
+            /*if (parent)
             {
-                var dist = (path.corners[pathProgress] - transform.position);
-                //moveVec = dist.normalized * speed;
-                moveVec = new(dist.normalized.x * speed, body.velocity.y, dist.normalized.z * speed);
-                transform.forward = new(dist.x, 0, dist.z);
-                if (dist.magnitude <= distToTarget)
+                var temp = parent.GetComponent<Tile>();
+                if (temp is not null)
                 {
-                    pathProgress = Mathf.Min(pathProgress + 1, path.corners.Length - 1);
+                    path = temp.pathToPlayer;
+                    if ((transform.position - parent.position).magnitude < 10)
+                    {
+                        moveVec = (temp.player.transform.position - transform.position).normalized * speed;
+                        transform.forward = new(moveVec.x, 0, moveVec.z);
+                        skip = true;
+                    }
                 }
+            }*/
+        if (/*!skip &&*/ parent == transform.parent && path is not null && path.corners.Length > pathProgress)
+        {
+            var dist = (path.corners[pathProgress] - transform.position);
+            //moveVec = dist.normalized * speed;
+            moveVec = new(dist.normalized.x * speed, body.velocity.y, dist.normalized.z * speed);
+            transform.forward = new(dist.x, 0, dist.z);
+            if (dist.magnitude <= distToTarget)
+            {
+                pathProgress = Mathf.Min(pathProgress + 1, path.corners.Length - 1);
             }
         }
-        else
+        else /*if (!skip)*/
         {
             parent = transform.parent;
             pathProgress = 1;
-            path = parent.GetComponent<Tile>().pathToPlayer;
+        }
+        var temp = parent.GetComponent<Tile>();
+        if (temp is not null)
+        {
+            path = temp.pathToPlayer;
         }
         base.FixedUpdate();
         body.AddForce (moveVec);

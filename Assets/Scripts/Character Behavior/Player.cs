@@ -55,5 +55,14 @@ public class Player : BasicCharacter
     }
 
 
+    protected override void CheckHeight()
+    {
+        if (transform.position.y < -10)
+        {
+            transform.position = transform.parent.position;
+        }
+    }
+
+
 
 }
