@@ -46,10 +46,13 @@ public class BasicCharacter : MonoBehaviour
         //{
         //    transform.parent = P.transform;
         //}
+<<<<<<< HEAD
         CheckHeight();
     }
     protected virtual void CheckHeight()
     {
+=======
+>>>>>>> parent of 518d20d (Fixed some stuff and changed a few others)
         if (transform.position.y < -10)
         {
             GameObject.Destroy(gameObject);
@@ -95,16 +98,24 @@ public class BasicCharacter : MonoBehaviour
         Guns[gun].Shoot(transform.position, Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, Cam.transform.position.y - transform.position.y)), Guns[gun].DefaultBullet, 15.0f, 1.15f);
         //Debug.Log(Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, -30.0f)));
     }
+<<<<<<< HEAD
     public void CheckHealth()
+=======
+
+    protected virtual void OnCollisionEnter(Collision collision)
+>>>>>>> parent of 518d20d (Fixed some stuff and changed a few others)
     {
         if (Health <= 0)
         {
             GameObject.Destroy(gameObject);
         }
+<<<<<<< HEAD
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+=======
+>>>>>>> parent of 518d20d (Fixed some stuff and changed a few others)
         //Debug.Log(collision.collider);
         var d = collision.collider.GetComponent<Door>();
         if (d && d.state == DoorState.Closed)

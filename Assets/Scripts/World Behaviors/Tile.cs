@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     [SerializeField] List<Door> Doors = new();
     [SerializeField] Transform walls;
     public Rigidbody body;
-    public NavMeshPath pathToPlayer;
+    public NavMeshPath pathToPlayer = new NavMeshPath();
     public GameObject player;
 
     Vector3 startLoc;

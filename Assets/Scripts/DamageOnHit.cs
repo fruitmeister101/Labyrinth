@@ -8,12 +8,16 @@ public class DamageOnHit : MonoBehaviour
     protected virtual void OnCollisionEnter(Collision collision)
     {
         var character = collision.gameObject.GetComponent<BasicCharacter>();
+<<<<<<< HEAD
         if (character) 
         {
             character.Health -= dmg;
             character.CheckHealth();
 
         }
+=======
+        if (character) character.Health -= dmg;
+>>>>>>> parent of 518d20d (Fixed some stuff and changed a few others)
         //GameObject.Destroy(this);
     }
 }
