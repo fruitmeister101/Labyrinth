@@ -9,6 +9,7 @@ public class DamageOnHit : MonoBehaviour
     {
         var character = collision.gameObject.GetComponent<BasicCharacter>();
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (character) 
         {
             character.Health -= dmg;
@@ -18,6 +19,13 @@ public class DamageOnHit : MonoBehaviour
 =======
         if (character) character.Health -= dmg;
 >>>>>>> parent of 518d20d (Fixed some stuff and changed a few others)
+=======
+        if (character) { 
+            character.Health -= dmg;
+            character.CheckHP();
+        }
+        
+>>>>>>> parent of 4354a6c (Revert "Fixed some stuff and changed a few others")
         //GameObject.Destroy(this);
     }
 }

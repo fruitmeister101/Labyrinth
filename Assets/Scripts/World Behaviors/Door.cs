@@ -49,9 +49,8 @@ public class Door : MonoBehaviour
     {
         if (state == DoorState.Closed)
         {
-            Debug.Log("Opened Door");
             OpenDoor();
-            Invoke("CloseDoor", 5.0f);
+            //Invoke("CloseDoor", 5.0f);
         }
     }
 }

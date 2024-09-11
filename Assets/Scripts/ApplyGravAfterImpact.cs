@@ -19,6 +19,7 @@ public class ApplyGravAfterImpact : MonoBehaviour
         {
             d.OpenDoor();
             d.Invoke("CloseDoor", 5.0f);
+            //d.Invoke("CloseDoor", 5.0f);
         }
         GameObject.Destroy(this);
     }

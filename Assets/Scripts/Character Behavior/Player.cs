@@ -33,6 +33,14 @@ public class Player : BasicCharacter
         base.Update();
     }
 
+    public override void CheckFall(float Height = -10)
+    {
+        if (transform.position.y < -10)
+        {
+            transform.position = transform.parent.position;
+        }
+    }
+
     protected override void FixedUpdate()
     {
         var grounded = Physics.Raycast(transform.position, Vector3.down, 1.25f);

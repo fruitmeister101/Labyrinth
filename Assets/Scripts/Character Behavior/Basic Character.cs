@@ -47,6 +47,7 @@ public class BasicCharacter : MonoBehaviour
         //    transform.parent = P.transform;
         //}
 <<<<<<< HEAD
+<<<<<<< HEAD
         CheckHeight();
     }
     protected virtual void CheckHeight()
@@ -57,6 +58,9 @@ public class BasicCharacter : MonoBehaviour
         {
             GameObject.Destroy(gameObject);
         }
+=======
+        CheckFall();
+>>>>>>> parent of 4354a6c (Revert "Fixed some stuff and changed a few others")
     }
     public bool Equip(Item item)
     {
@@ -99,16 +103,21 @@ public class BasicCharacter : MonoBehaviour
         //Debug.Log(Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, -30.0f)));
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void CheckHealth()
 =======
 
     protected virtual void OnCollisionEnter(Collision collision)
 >>>>>>> parent of 518d20d (Fixed some stuff and changed a few others)
+=======
+    public virtual void CheckHP()
+>>>>>>> parent of 4354a6c (Revert "Fixed some stuff and changed a few others")
     {
         if (Health <= 0)
         {
             GameObject.Destroy(gameObject);
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
     }
 
@@ -116,12 +125,26 @@ public class BasicCharacter : MonoBehaviour
     {
 =======
 >>>>>>> parent of 518d20d (Fixed some stuff and changed a few others)
+=======
+    }
+    public virtual void CheckFall(float Height = -10)
+    {
+        if (transform.position.y < Height)
+        {
+            GameObject.Destroy(gameObject);
+        }
+    }
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        
+>>>>>>> parent of 4354a6c (Revert "Fixed some stuff and changed a few others")
         //Debug.Log(collision.collider);
         var d = collision.collider.GetComponent<Door>();
         if (d && d.state == DoorState.Closed)
         {
             d.OpenDoor();
             d.Invoke("CloseDoor", 5.0f);
+            //d.Invoke("CloseDoor", 5.0f);
         }
     }
 }
