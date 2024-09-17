@@ -117,8 +117,9 @@ public class Tile : MonoBehaviour
         if (pathToPlayer is null) 
         { 
             pathToPlayer = new();
-        } 
-        NavMesh.CalculatePath(transform.position, player.transform.position, NavMesh.AllAreas, pathToPlayer);
+        }
+        var pT = player.transform.position;
+        NavMesh.CalculatePath(transform.position, new(pT.x, 0, pT.z), NavMesh.AllAreas, pathToPlayer);
 
     }
 

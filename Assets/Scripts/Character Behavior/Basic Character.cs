@@ -85,7 +85,8 @@ public class BasicCharacter : MonoBehaviour
 
     protected void ShootGunToMouse(int gun)
     {
-        Guns[gun].Shoot(transform.position, Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, Cam.transform.position.y - transform.position.y)), Guns[gun].DefaultBullet, 15.0f, 1.15f);
+        //Guns[gun].Shoot(transform.position, Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, Cam.transform.position.y - transform.position.y)), Guns[gun].DefaultBullet, 15.0f, 1.15f);
+        Guns[gun].Shoot(transform.position, Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, Cam.transform.position.y - 1.0f)), Guns[gun].DefaultBullet, 15.0f, 1.15f);
         //Debug.Log(Cam.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, -30.0f)));
     }
     public virtual void CheckHP()
